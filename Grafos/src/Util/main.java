@@ -19,9 +19,18 @@ import java.util.Set;
  */
 public class main {
     public static void main(String[] args){
-        System.out.println(generarGrafoSintactico("the violence on the tv the article discussed the idea of the amount of violence on the news"));
+        GraphBingo<String> bingo = new GraphBingo<>(false);
+        generateNumbers(bingo);
+        bingo.addTabla("111", "rojo");
+        bingo.addTabla("112", "amarillo");
+        bingo.addTabla("113","azul");
+        bingo.addTabla("114","amarillo");
+        bingo.addEdge("111", "1");
+        bingo.addEdge("111", "2");
+        bingo.addEdge("111", "3");
+        System.out.println(bingo);
     }
-    
+    /*
     public static GraphLA<String> generarGrafoSintactico(String T){
         String[] palabras = T.toLowerCase().replaceAll(",","").split(" ");
         Map<String,Integer> dicc = new HashMap<>();
@@ -42,5 +51,13 @@ public class main {
             G.addEdge(letras[0],letras[1],dicc.get(key));
         }
         return G;
+    }*/
+    
+    public static void generateNumbers(GraphBingo<String> grafo){
+        for (int i=1; i <= 20; i++){
+            grafo.addNumero(String.valueOf(i),"nocolor");
+        }
     }
 }
+
+

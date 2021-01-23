@@ -14,18 +14,24 @@ import java.util.Objects;
  */
 public class Vertex <E> {
     E data;
+    E color;
     LinkedList<Edge> edges;
     private boolean visited;
     private int distancia;
     private Vertex<E> antecesor;
 
-    public Vertex(E data) {
+    public Vertex(E data, E color) {
         this.data = data;
+        this.color = color;
         edges = new LinkedList<>();
     }
 
     public E getData() {
         return data;
+    }
+    
+    public E getColor(){
+        return color;
     }
 
     public void setData(E data) {
