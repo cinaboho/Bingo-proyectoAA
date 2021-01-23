@@ -61,7 +61,6 @@ public class Edge <E> {
         final Edge<E> other = (Edge<E>) obj;
         return Objects.equals(this.vo, other.vo) && Objects.equals(this.vd, other.vd);
     }
-    
     public String toString(){
         return "("+vo.getData()+","+vd.getData()+","+peso+")";
     }

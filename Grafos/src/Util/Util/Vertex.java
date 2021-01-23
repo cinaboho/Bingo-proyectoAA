@@ -66,7 +66,7 @@ public class Vertex <E> {
             return false;
         }
         final Vertex<E> other = (Vertex<E>) obj;
-        return Objects.equals(this.data, other.data); 
+        return Objects.equals(this.data, other.data);
     }
 
     void setDistancia(int i) {
@@ -84,6 +84,4 @@ public class Vertex <E> {
     public void setAntecesor(Vertex<E> antecesor) {
         this.antecesor = antecesor;
     }
-    
-    
 }

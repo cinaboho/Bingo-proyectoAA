@@ -5,20 +5,13 @@
  */
 package Util;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-
 /**
  *
  * @author josue
  */
-public class main {
-    public static void main(String[] args){
+public class Test{
+        public static void main(String[] args){
+
         GraphBingo<String> bingo = new GraphBingo<>(false);
         generateNumbers(bingo);
         bingo.addTabla("111", "rojo");
@@ -52,10 +45,10 @@ public class main {
         }
         return G;
     }*/
-    
-    public static void generateNumbers(GraphBingo<String> grafo){
+
+    public static void generateNumbers(GraphBingo <String> grafBingo){
         for (int i=1; i <= 20; i++){
-            grafo.addNumero(String.valueOf(i),"nocolor");
+            grafBingo.addNumero(String.valueOf(i),"bgcolor");
         }
     }
 }

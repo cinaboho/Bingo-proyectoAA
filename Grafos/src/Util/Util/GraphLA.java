@@ -15,6 +15,7 @@ import java.util.ListIterator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
+import Util.Vertex;
 
 /**
  *
@@ -44,7 +45,7 @@ public class GraphLA <E>{
             vo.getEdges().add(e);
         if(!directed){
             Edge<E> ei = new Edge<>(peso,vd,vo);
-            if(!vd.getEdges().contains(ei))    
+            if(!vd.getEdges().contains(ei))
                 vd.getEdges().add(ei);
         }
         return true;
