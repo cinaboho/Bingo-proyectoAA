@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
+package Grafos.src.Util.Util;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -24,6 +24,11 @@ public class Vertex <E> {
         this.data = data;
         this.color = color;
         edges = new LinkedList<>();
+    }
+
+    public Vertex(E data) {
+        this.data = data;
+        edges=new LinkedList<>();
     }
 
     public E getData() {

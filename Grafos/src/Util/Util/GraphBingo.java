@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
+package Grafos.src.Util.Util;
 
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Set;
 
 /**
  *
@@ -122,6 +118,12 @@ public class GraphBingo <E>{
     
     public Vertex<E> searchVertex(E data){
         for(Vertex<E> v : tablas){
+            if(v.getData().equals(data)) return v;
+        }
+        return null;
+    }
+    public Vertex<E> searchVertexNumber(E data){
+        for(Vertex<E> v : numeros){
             if(v.getData().equals(data)) return v;
         }
         return null;
