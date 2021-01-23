@@ -10,7 +10,14 @@ public class App {
         FileReader f = new FileReader(archivo);
         BufferedReader b = new BufferedReader(f);
         while((cadena = b.readLine())!=null) {
-            System.out.println(cadena);
+            System.out.println("cadena: "+cadena);
+
+            String[] parts = cadena.split(",");
+            String part1_id= parts[0];
+            String part2_color = parts[1];
+            String part3_numeros = parts[2];
+            System.out.println("id: "+part1_id+" |color: "+part2_color+" |numeros: "+part3_numeros);
+
         }
         b.close();
     }
