@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Vertex <E> {
     E data;
     E color;
-    LinkedList<Edge> edges;
+    LinkedList<Edge<E>> edges;
     private boolean visited;
     private int distancia;
     private Vertex<E> antecesor;
@@ -23,6 +23,10 @@ public class Vertex <E> {
     public Vertex(E data, E color) {
         this.data = data;
         this.color = color;
+        edges = new LinkedList<>();
+    }
+    public Vertex(E data) {
+        this.data = data;
         edges = new LinkedList<>();
     }
 
@@ -38,11 +42,11 @@ public class Vertex <E> {
         this.data = data;
     }
 
-    public LinkedList<Edge> getEdges() {
+    public LinkedList<Edge<E>> getEdges() {
         return edges;
     }
 
-    public void setEdges(LinkedList<Edge> edges) {
+    public void setEdges(LinkedList<Edge<E>> edges) {
         this.edges = edges;
     }
 

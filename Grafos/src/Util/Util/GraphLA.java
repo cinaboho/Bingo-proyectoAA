@@ -8,14 +8,12 @@ package Util;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
-import Util.Vertex;
 
 /**
  *
@@ -31,7 +29,7 @@ public class GraphLA <E>{
     }
     
     public boolean addVertex(E data){
-        Vertex<E> v =  new Vertex<>(data);
+        Vertex<E> v =  new Vertex<E>(data);
         return (data == null || vertexes.contains(v))?false:vertexes.add(v);
     }
     
@@ -50,14 +48,16 @@ public class GraphLA <E>{
         }
         return true;
     }
-    
+
     public boolean removeVertex(E data){
         if(data == null || vertexes.isEmpty()) return false;
         ListIterator<Vertex<E>> iv = vertexes.listIterator();
         while(iv.hasNext()){
-            Vertex<E> v = iv.next();
-            ListIterator<Edge> ie = v.getEdges().listIterator();
-            while(ie.hasNext()){ 
+            Vertex<E> v = new Vertex<E>(data);
+            v = iv.next();
+
+            ListIterator<Edge<E>> ie = v.getEdges().listIterator();
+            while(ie.hasNext()){
                 Edge<E> e = ie.next();
                 if(e.getVDestino().getData().equals(data)){
                     ie.remove();
@@ -81,21 +81,21 @@ public class GraphLA <E>{
         }
         return true;
     }
-    
+
     public Vertex<E> searchVertex(E data){
         for(Vertex<E> v : vertexes){
             if(v.getData().equals(data)) return v;
         }
         return null;
     }
-    
+
     public int inDegree(E data){
         if(data == null || vertexes.isEmpty()) return -1;
         Vertex<E> vd = searchVertex(data);
         if(vd == null) return -1;
         int cont = 0;
         for(Vertex<E> v : vertexes){
-            Edge<E> e = new Edge(0, v, vd);
+            Edge<E> e = new Edge<E>(0, v, vd);
             if(v.getEdges().contains(e))
                 cont++;
         }
@@ -212,8 +212,8 @@ public class GraphLA <E>{
     public List<Set<E>> connectedComponents(){
         if(vertexes.isEmpty()) return null;
         List<Set<E>> components = new ArrayList<>();
-        Set<E> vertx = new HashSet<>();
-        for(Vertex v : vertexes) vertx.add((E) v.getData());
+        Set<E> vertx = new HashSet<E>();
+        for(Vertex <E>v : vertexes) vertx.add((E) v.getData());
         GraphLA<E> reverse=null;
         if(directed){
              reverse = this.reverse();
@@ -237,7 +237,7 @@ public class GraphLA <E>{
     }
     
     public GraphLA<E> unirGrafos(GraphLA<E> other){
-        GraphLA<E> result = new GraphLA(false);
+        GraphLA<E> result = new GraphLA<E>(false);
         if(this.directed || other.directed || other==null) return result;
         if(this.vertexes.isEmpty()) return other;
         if(other.vertexes.isEmpty()) return this;
@@ -262,7 +262,7 @@ public class GraphLA <E>{
         return result;
     }
     
-    public GraphLA prim(){
+    public GraphLA<E> prim(){
         if(directed || !isConnected() || vertexes.isEmpty()) return null;
         GraphLA<E> graph = new GraphLA<E>(false);
         for(Vertex<E> v :vertexes){
@@ -289,12 +289,12 @@ public class GraphLA <E>{
                 }
             }
         }
-        cleanVertexes();    
+        cleanVertexes();
         return graph;
     }
     
-    public GraphLA kruskal(){
-        GraphLA graph = new GraphLA<>(true);
+    public GraphLA<E> kruskal(){
+        GraphLA<E> graph = new GraphLA<>(true);
         if(directed || !isConnected() || vertexes.isEmpty()) return null;
         PriorityQueue<Edge<E>> cola = new PriorityQueue<>((Edge<E> e1,Edge<E> e2)->e1.getPeso()-e2.getPeso());
         for(Vertex<E> v : vertexes){
@@ -306,82 +306,83 @@ public class GraphLA <E>{
            }
         }
         while(graph.isConnected()){
-            Edge<E> e = cola.poll();
-            graph.addEdge(e.getVOrigen(), e.getVDestino(), e.getPeso());
+            Edge<E> e;
+            e = cola.poll();
+            graph.addEdge(e.getVOrigen().getData(), e.getVDestino().getData(), e.getPeso());
         }
         return graph;
     }
     
-    private void dijkstra(E inicio) {
-        Vertex<E> ve = searchVertex(inicio);
-        ve.setDistancia(0);
-        PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2) -> v1.getDistancia() - v2.getDistancia());
-        cola.offer(ve);
-        while (!cola.isEmpty()) {
-            ve = cola.poll();
-            ve.setVisited(true);
-            for (Edge<E> ed : ve.getEdges()) {
-                if (!ed.getVDestino().isVisited()) {
-                    if (ve.getDistancia() + ed.getPeso() < ed.getVDestino().getDistancia()) {
-                        ed.getVDestino().setDistancia(ve.getDistancia() + ed.getPeso());
-                        ed.getVDestino().setAntecesor(ve);
-                        cola.offer(ed.getVDestino());
-                    }
-                }
-            }
-        }
-    }
+    // private void dijkstra(E inicio) {
+    //     Vertex<E> ve = searchVertex(inicio);
+    //     ve.setDistancia(0);
+    //     PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2) -> v1.getDistancia() - v2.getDistancia());
+    //     cola.offer(ve);
+    //     while (!cola.isEmpty()) {
+    //         ve = cola.poll();
+    //         ve.setVisited(true);
+    //         for (Edge<E> ed : ve.getEdges()) {
+    //             if (!ed.getVDestino().isVisited()) {
+    //                 if (ve.getDistancia() + ed.getPeso() < ed.getVDestino().getDistancia()) {
+    //                     ed.getVDestino().setDistancia(ve.getDistancia() + ed.getPeso());
+    //                     ed.getVDestino().setAntecesor(ve);
+    //                     cola.offer(ed.getVDestino());
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     
-    private void dijkstraModificado(E inicio) {
-        Vertex<E> v = searchVertex(inicio);
-        v.setDistancia(0);
-        PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2) -> v1.getDistancia() - v2.getDistancia());
-        cola.offer(v);
-        while (!cola.isEmpty()) {
-            v = cola.poll();
-            v.setVisited(true);
-            for (Edge<E> e : v.getEdges()) {
-                if (!e.getVDestino().isVisited()) {
-                    if (v.getDistancia() + 1 < e.getVDestino().getDistancia()) {
-                        e.getVDestino().setDistancia(v.getDistancia() + 1);
-                        e.getVDestino().setAntecesor(v);
-                        cola.offer(e.getVDestino());
-                    }
-                }
-            }
-        }
-    }
+    // private void dijkstraModificado(E inicio) {
+    //     Vertex<E> v = searchVertex(inicio);
+    //     v.setDistancia(0);
+    //     PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2) -> v1.getDistancia() - v2.getDistancia());
+    //     cola.offer(v);
+    //     while (!cola.isEmpty()) {
+    //         v = cola.poll();
+    //         v.setVisited(true);
+    //         for (Edge<E> e : v.getEdges()) {
+    //             if (!e.getVDestino().isVisited()) {
+    //                 if (v.getDistancia() + 1 < e.getVDestino().getDistancia()) {
+    //                     e.getVDestino().setDistancia(v.getDistancia() + 1);
+    //                     e.getVDestino().setAntecesor(v);
+    //                     cola.offer(e.getVDestino());
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     
-    public int menorDistancia(E start, E end) {
-        if (start == null || end == null) {
-            return -1;
-        }
-        if (start.equals(end)) {
-            return 0;
-        }
-        dijkstraModificado(start);
-        int retorno = searchVertex(end).getDistancia();
-        cleanVertexes();
-        return retorno;
-    }
+    // public int menorDistancia(E start, E end) {
+    //     if (start == null || end == null) {
+    //         return -1;
+    //     }
+    //     if (start.equals(end)) {
+    //         return 0;
+    //     }
+    //     dijkstraModificado(start);
+    //     int retorno = searchVertex(end).getDistancia();
+    //     cleanVertexes();
+    //     return retorno;
+    // }
     
-    public List<E> caminoMinimo(E  inicio, E fin) {
-        Deque<E> result = new LinkedList<>();
-        if (inicio == null || fin == null) {
-            return null;
-        }
-        if (inicio.equals(fin)) {
-            return null;
-        }
-        dijkstraModificado(inicio);
-        Vertex<E> v = searchVertex(fin);
-        while (v != null) {
-            result.addLast(v.getData());
-            v = v.getAntecesor();
-        }
-        cleanVertexes();
-        List<E> list = new LinkedList<>();
-        list.addAll(result);
-        return list;
-    }
+    // public List<E> caminoMinimo(E  inicio, E fin) {
+    //     Deque<E> result = new LinkedList<>();
+    //     if (inicio == null || fin == null) {
+    //         return null;
+    //     }
+    //     if (inicio.equals(fin)) {
+    //         return null;
+    //     }
+    //     dijkstraModificado(inicio);
+    //     Vertex<E> v = searchVertex(fin);
+    //     while (v != null) {
+    //         result.addLast(v.getData());
+    //         v = v.getAntecesor();
+    //     }
+    //     cleanVertexes();
+    //     List<E> list = new LinkedList<>();
+    //     list.addAll(result);
+    //     return list;
+    // }
 }
