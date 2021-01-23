@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Grafos.src.Util.Util;
+package Util;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -18,36 +18,37 @@ import java.util.Queue;
  */
 public class GraphBingo <E>{
     private LinkedList<Vertex<E>> tablas;
-    private ArrayList<Vertex<E>> numeros;
+    private ArrayList<Vertex<E>> numerous;
     private boolean directed;
-    
+
     public GraphBingo(boolean directed){
         this.directed = directed;
         tablas = new LinkedList<>();
-        numeros = new ArrayList<>();
+        numerous = new ArrayList<>();
     }
-    
+
     public boolean addTabla(E data, E color){
         Vertex<E> v =  new Vertex<>(data,color);
         return (data == null || tablas.contains(v))?false:tablas.add(v);
     }
-    
+
     public boolean addNumero(E data, E color){
         Vertex<E> v =  new Vertex<>(data,color);
-        return (data == null || numeros.contains(v))?false:numeros.add(v);
+        return (data == null || numerous.contains(v))?false:numerous.add(v);
     }
     public boolean addEdge(E src,E dst){
         if(src == null || dst == null) return false;
         Vertex<E> vo = searchVertex(src);
-        Vertex<E> vd = numeros.get(Integer.parseInt((String) dst)-1);
+        Vertex<E> vd = numerous.get(Integer.parseInt((String) dst)-1);
         if(vo == null || vd == null) return false;
         Edge<E> e = new Edge<>(1,vo,vd);
         if(!vo.getEdges().contains(e))
             vo.getEdges().add(e);
         if(!directed){
             Edge<E> ei = new Edge<>(1,vd,vo);
-            if(!vd.getEdges().contains(ei))    
+            if(!vd.getEdges().contains(ei)){
                 vd.getEdges().add(ei);
+            }
         }
         return true;
     }
@@ -73,7 +74,7 @@ public class GraphBingo <E>{
         ListIterator<Vertex<E>> iv = tablas.listIterator();
         while(iv.hasNext()){
             Vertex<E> v = iv.next();
-            ListIterator<Edge> ie = v.getEdges().listIterator();
+            ListIterator<Edge<E>> ie = v.getEdges().listIterator();
             while(ie.hasNext()){ 
                 Edge<E> e = ie.next();
                 if(e.getVDestino().getData().equals(data)){
@@ -88,7 +89,7 @@ public class GraphBingo <E>{
     public int removeEdge(E src,E dst){
         if(src == null || dst == null) return -1;
         Vertex<E> vo = searchVertex(src);
-        Vertex<E> vd = numeros.get(Integer.parseInt((String) dst)-1);
+        Vertex<E> vd = numerous.get(Integer.parseInt((String) dst)-1);
         if(vo == null || vd == null) return -1;
         Edge<E> e = new Edge<>(0,vo,vd);
         vo.getEdges().remove(e);
@@ -123,7 +124,7 @@ public class GraphBingo <E>{
         return null;
     }
     public Vertex<E> searchVertexNumber(E data){
-        for(Vertex<E> v : numeros){
+        for(Vertex<E> v : numerous){
             if(v.getData().equals(data)) return v;
         }
         return null;
@@ -135,7 +136,7 @@ public class GraphBingo <E>{
         if(vd == null) return -1;
         int cont = 0;
         for(Vertex<E> v : tablas){
-            Edge<E> e = new Edge(0, v, vd);
+            Edge<E> e = new Edge<E>(0, v, vd);
             if(v.getEdges().contains(e))
                 cont++;
         }

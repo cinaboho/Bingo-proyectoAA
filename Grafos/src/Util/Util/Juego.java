@@ -1,4 +1,4 @@
-package Grafos.src.Util.Util;
+package Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;

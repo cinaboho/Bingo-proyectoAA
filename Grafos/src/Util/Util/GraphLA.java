@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Grafos.src.Util.Util;
+//package Grafos.src.Util.Util;
+package Util;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -235,7 +236,7 @@ public class GraphLA <E>{
         }
         return components;
     }
-    
+
     public GraphLA<E> unirGrafos(GraphLA<E> other){
         GraphLA<E> result = new GraphLA<E>(false);
         if(this.directed || other.directed || other==null) return result;
@@ -261,7 +262,7 @@ public class GraphLA <E>{
         }
         return result;
     }
-    
+
     public GraphLA<E> prim(){
         if(directed || !isConnected() || vertexes.isEmpty()) return null;
         GraphLA<E> graph = new GraphLA<E>(false);
@@ -292,7 +293,7 @@ public class GraphLA <E>{
         cleanVertexes();
         return graph;
     }
-    
+
     public GraphLA<E> kruskal(){
         GraphLA<E> graph = new GraphLA<>(true);
         if(directed || !isConnected() || vertexes.isEmpty()) return null;
@@ -312,7 +313,7 @@ public class GraphLA <E>{
         }
         return graph;
     }
-    
+
     // private void dijkstra(E inicio) {
     //     Vertex<E> ve = searchVertex(inicio);
     //     ve.setDistancia(0);

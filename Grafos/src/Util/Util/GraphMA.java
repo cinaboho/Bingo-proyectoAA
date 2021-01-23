@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Grafos.src.Util.Util;
+package Util;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class GraphMA <E>{
     private boolean directed;
     
     public GraphMA(boolean directed){
-        vertexes = new ArrayList();
+        vertexes = new ArrayList<E>();
         matrix = new int[capacity][capacity];
         this.directed = directed;
     }
