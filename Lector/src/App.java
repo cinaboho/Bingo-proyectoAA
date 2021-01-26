@@ -5,7 +5,13 @@ import java.io.IOException;
 
 public class App {
 
+    public static int sizeN (int taman){
+        int nuevo = (taman + 1)/2;
+        return nuevo;
+    }
+
     public static void muestraContenido(String archivo) throws FileNotFoundException, IOException {
+
         String cadena;
         FileReader f = new FileReader(archivo);
         BufferedReader b = new BufferedReader(f);
@@ -15,9 +21,11 @@ public class App {
             String[] parts = cadena.split(",");
             String part1_id= parts[0];
             String part2_color = parts[1];
-            String part3_numeros = parts[2];
-            System.out.println("id: "+part1_id+" |color: "+part2_color+" |numeros: "+part3_numeros);
+            String[] part3_numeros = parts[2].split("|");
+            System.out.println("id: "+part1_id+" |color: "+part2_color);
+            System.out.println(" numeros: "+part3_numeros);
 
+            
         }
         b.close();
     }
