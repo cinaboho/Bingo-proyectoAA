@@ -19,7 +19,6 @@ public class Juego {
         generateNumbers(bingo);
         cargarTablas();
         generarTablas("Grafos/src/Archivos/archivo.txt");
-        System.out.println(bingo);
     }
 
     //contiene las bolas que van saliendo en el juego
@@ -116,7 +115,9 @@ public class Juego {
         */
         for (Edge e:v.getEdges()){
             Vertex id= e.getVDestino();
-            if(id.getColor()==colorRonda){
+
+            if(id.getColor().equals(colorRonda)){
+                System.out.println(id.getColor().equals(colorRonda));
                 int salida=bingo.removeEdge((String)id.getData(),bola);
                 if(salida==1){
                     return (String)e.getVDestino().getData();
