@@ -1,5 +1,6 @@
 package Grafos.src.Util;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,15 +9,17 @@ public class Juego {
     String colorRonda="";
 
     //Constructor
-    public Juego() {
+    public Juego() throws Exception {
         llenarGrafo();
-        System.out.println(bingo.toString());
+        menu();
     }
 
     //llena el grafo
-    private void llenarGrafo() {
+    private void llenarGrafo() throws Exception {
         generateNumbers(bingo);
-        generarTablas();
+        cargarTablas();
+        generarTablas("Grafos/src/Archivos/archivo.txt");
+        System.out.println(bingo);
     }
 
     //contiene las bolas que van saliendo en el juego
@@ -153,8 +156,43 @@ public class Juego {
     ¡¡ATENCION!! Si se le queda la pc, cambie el número en el while(cont < 202)
     a uno mucho menor (este numero es la cantida de tablas generadas);
     */
-    public void  generarTablas(){
+    public void  generarTablas(String archivo) throws IOException {
+        String cadena;
+        FileReader f = new FileReader(archivo);
+        BufferedReader b = new BufferedReader(f);
+        while((cadena = b.readLine())!=null) {
+            System.out.println("cadena: "+cadena);
+
+            String[] parts = cadena.split(";");
+            String part1_id= parts[0];
+            String part2_color = parts[1];
+
+            String[] part3_numeros = parts[2].split("-");
+
+            //se añade al grafo  y recorremos los números para crear los arcos (aristas)
+            bingo.addTabla(part1_id, part2_color);
+            for(String n:part3_numeros){
+                bingo.addEdge(part1_id,n);
+
+            }
+
+        }
+        b.close();
+
+
+
+    }
+
+    public void cargarTablas() throws IOException {
         int cont=1;
+        File file= new File("Grafos/src/Archivos/archivo.txt");
+
+        if(!file.exists()){
+            file.createNewFile();
+        }
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
         while(cont<1000){
             //crea aleatoriamente el id
             int a=(int)(Math.random()*10);
@@ -167,7 +205,85 @@ public class Juego {
 
             String id= String.valueOf(a) + String.valueOf(b)+String.valueOf(c)+String.valueOf(d)+String.valueOf(e)+String.valueOf(f)+String.valueOf(g);
 
-            
+            //hace los movimientos necesarios para por aletoriedad asignarle un color a la tabla
+
+            String color="amarillo";
+            int numeros = 14;
+            int co=(int)(Math.random()*3+1);
+            if(co==2){
+                color="azul";
+            }else if(co==3){
+                color="rojo";
+                numeros = 11;
+            }
+            if(co==3){
+                numeros=11;
+            }
+
+            bw.write(id +";" + color+";");
+
+            //crea una lista de numeros de la tabla
+            ArrayList<Integer> list=new ArrayList<>();
+            while(list.size()<numeros){
+                int n= (int)(Math.random()*20+1);
+                if(list.isEmpty()){
+                    list.add(n);
+                    bw.write(""+n);
+                } else if(!list.contains(n)){
+                    list.add(n);
+                    bw.write("-"+n);
+                }
+            }
+            bw.write("\n");
+            cont++;
+        }
+
+        bw.close();
+
+
+
+    }
+
+
+    /*
+     FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("c:/prueba.txt");
+            pw = new PrintWriter(fichero);
+
+            for (int i = 0; i < 10; i++)
+                pw.println("Linea " + i);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+
+
+
+            while(cont<1000){
+            //crea aleatoriamente el id
+            int a=(int)(Math.random()*10);
+            int b=(int)(Math.random()*10);
+            int c=(int)(Math.random()*10);
+            int d=(int)(Math.random()*10);
+            int e=(int)(Math.random()*10);
+            int f=(int)(Math.random()*10);
+            int g=(int)(Math.random()*10);
+
+            String id= String.valueOf(a) + String.valueOf(b)+String.valueOf(c)+String.valueOf(d)+String.valueOf(e)+String.valueOf(f)+String.valueOf(g);
+
+
 
             //hace los movimientos necesarios para por aletoriedad asignarle un color a la tabla
             String color="amarillo";
@@ -180,7 +296,7 @@ public class Juego {
                 color="rojo";
                 numeros = 11;
             }
-            
+
             //crea una lista de numeros de la tabla
             ArrayList<Integer> list=new ArrayList<>();
             while(list.size()<numeros){
@@ -190,7 +306,6 @@ public class Juego {
                 }
             }
 
-            //se añade al grafico  y recorremos los números para crear los arcos (aristas)
             bingo.addTabla(id, color);
             for(int h:list){
                 bingo.addEdge(id, String.valueOf(h));
@@ -198,7 +313,6 @@ public class Juego {
             cont++;
         }
 
-
-    }
+     */
 
 }

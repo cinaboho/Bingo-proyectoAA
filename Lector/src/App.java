@@ -1,3 +1,5 @@
+package Lector.src;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,7 +12,7 @@ public class App {
         return nuevo;
     }
 
-    public static void muestraContenido(String archivo) throws FileNotFoundException, IOException {
+    public  void muestraContenido(String archivo) throws FileNotFoundException, IOException {
 
         String cadena;
         FileReader f = new FileReader(archivo);
@@ -31,6 +33,6 @@ public class App {
     }
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        muestraContenido("archivo.txt");
+        //muestraContenido("archivo.txt");
     }
 }
