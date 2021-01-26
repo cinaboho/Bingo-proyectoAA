@@ -1,4 +1,4 @@
-package Grafos.src.Util.Util;
+package Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -52,8 +52,13 @@ public class Juego {
 
     //simula a una ronda según el color indicado
     public void ronda(){
+        int nBolas;
+        if(colorRonda.equals("amarillo") || colorRonda.equals("azul"))
+            nBolas = 14;
+        else
+            nBolas = 11;
         //sigue el lazo mientras no se hayan cantado todas las bolas
-        while(bolasJugadas.size()<20){
+        while(bolasJugadas.size()< 20){
 
             //se obtiene una bola de este método
             int bola=generarBola();
@@ -71,7 +76,28 @@ public class Juego {
                 menu();
             }
         }
-        System.out.println("No hubo ganador");
+        System.out.println("Hubo un ganador? Seleccione una opcion:\n 1)Si\n 2)No\n");
+        String opcion=new Scanner(System.in).nextLine();
+        if(opcion.equals("2")){
+            System.out.println("***Se juega una bola mas porque no hubo ganador***");
+            int bola=generarBola();
+            System.out.println("la bola jugada es: "+ bola);
+
+            //método para tachar(eliminar el numero de la tabla) bolas de la tabla
+            String salida=tachar(bola);
+
+            //Si nos devuelve algo diferente a nulo, significa que esa tabla ganó
+            if(salida!="null"){
+                System.out.println("el ganador es : "+salida);
+
+                //se limpia la lista de bolas jugadas
+                bolasJugadas.clear();
+                menu();
+            }
+        }
+        System.out.println("No hubo tabla ganadora");
+        bolasJugadas.clear();
+        menu();
     }
 
     //método para tachar (eliminar numero de la tabla)
@@ -141,22 +167,26 @@ public class Juego {
 
             String id= String.valueOf(a) + String.valueOf(b)+String.valueOf(c)+String.valueOf(d)+String.valueOf(e)+String.valueOf(f)+String.valueOf(g);
 
-            //crea una lista de numeros de la tabla
-            ArrayList<Integer> list=new ArrayList<>();
-            while(list.size()<14){
-                int n= (int)(Math.random()*20+1);
-                if(!list.contains(n)){
-                    list.add(n);
-                }
-            }
+            
 
             //hace los movimientos necesarios para por aletoriedad asignarle un color a la tabla
             String color="amarillo";
+            int numeros = 14;
             int co=(int)(Math.random()*3+1);
             if(co==2){
                 color="azul";
             }else if(co==3){
                 color="rojo";
+                numeros = 11;
+            }
+            
+            //crea una lista de numeros de la tabla
+            ArrayList<Integer> list=new ArrayList<>();
+            while(list.size()<numeros){
+                int n= (int)(Math.random()*20+1);
+                if(!list.contains(n)){
+                    list.add(n);
+                }
             }
 
             //se añade al grafico  y recorremos los números para crear los arcos (aristas)

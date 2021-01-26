@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package Util;
-
-import Grafos.src.Util.Util.GraphBingo;
-
+import Util.GraphBingo;
 /**
  *
  * @author josue
@@ -14,7 +12,7 @@ import Grafos.src.Util.Util.GraphBingo;
 public class Test{
         public static void main(String[] args){
 
-        GraphBingo<String> bingo = new GraphBingo<>(false);
+        GraphBingo<String> bingo = new GraphBingo<String>(false);
         generateNumbers(bingo);
         bingo.addTabla("111", "rojo");
         bingo.addTabla("112", "amarillo");
