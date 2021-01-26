@@ -1,4 +1,4 @@
-package Grafos.src.Util;
+package util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,8 +18,8 @@ public class Juego {
     //llena el grafo
     private void llenarGrafo() throws Exception {
         generateNumbers(bingo);
-        cargarTablas();
-        generarTablas("Grafos/src/Archivos/archivo.txt");
+        //cargarTablas();
+        generarTablas("src/Archivos/archivo.txt");
     }
 
     //contiene las bolas que van saliendo en el juego
@@ -29,7 +29,7 @@ public class Juego {
     public  void menu() {
 
         System.out.println("Ingrese el número de la ronda: \n" +
-                "1) Amarillo \n2) Azul \n3) Rojo\n");
+                "1) Amarillo \n2) Azul \n3) Rojo\n4) Salir\n");
         String opcion=new Scanner(System.in).nextLine();
 
         switch (opcion){
@@ -45,6 +45,8 @@ public class Juego {
                 colorRonda="rojo";
                 ronda();
                 break;
+            case "4":
+                return;
             default:
                 System.out.println("opcion no válida, elija de nuevo \n");
                 menu();
@@ -119,7 +121,6 @@ public class Juego {
             Vertex id= e.getVDestino();
 
             if(id.getColor().equals(colorRonda)){
-                System.out.println(id.getColor().equals(colorRonda));
                 int salida=bingo.removeEdge((String)id.getData(),bola);
                 if(salida==1){
                     ganadores.add((String)e.getVDestino().getData());
@@ -164,7 +165,6 @@ public class Juego {
         FileReader f = new FileReader(archivo);
         BufferedReader b = new BufferedReader(f);
         while((cadena = b.readLine())!=null) {
-            System.out.println("cadena: "+cadena);
 
             String[] parts = cadena.split(";");
             String part1_id= parts[0];
@@ -188,7 +188,7 @@ public class Juego {
 
     public void cargarTablas() throws IOException {
         int cont=1;
-        File file= new File("Grafos/src/Archivos/archivo.txt");
+        File file= new File("src/Archivos/archivo.txt");
 
         if(!file.exists()){
             file.createNewFile();
@@ -246,76 +246,5 @@ public class Juego {
 
 
     }
-
-
-    /*
-     FileWriter fichero = null;
-        PrintWriter pw = null;
-        try
-        {
-            fichero = new FileWriter("c:/prueba.txt");
-            pw = new PrintWriter(fichero);
-
-            for (int i = 0; i < 10; i++)
-                pw.println("Linea " + i);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-           try {
-           // Nuevamente aprovechamos el finally para
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero)
-              fichero.close();
-           } catch (Exception e2) {
-              e2.printStackTrace();
-           }
-        }
-
-
-
-            while(cont<1000){
-            //crea aleatoriamente el id
-            int a=(int)(Math.random()*10);
-            int b=(int)(Math.random()*10);
-            int c=(int)(Math.random()*10);
-            int d=(int)(Math.random()*10);
-            int e=(int)(Math.random()*10);
-            int f=(int)(Math.random()*10);
-            int g=(int)(Math.random()*10);
-
-            String id= String.valueOf(a) + String.valueOf(b)+String.valueOf(c)+String.valueOf(d)+String.valueOf(e)+String.valueOf(f)+String.valueOf(g);
-
-
-
-            //hace los movimientos necesarios para por aletoriedad asignarle un color a la tabla
-            String color="amarillo";
-            int numeros = 14;
-            int co=(int)(Math.random()*3+1);
-            System.out.println("co es : "+co);
-            if(co==2){
-                color="azul";
-            }else if(co==3){
-                color="rojo";
-                numeros = 11;
-            }
-
-            //crea una lista de numeros de la tabla
-            ArrayList<Integer> list=new ArrayList<>();
-            while(list.size()<numeros){
-                int n= (int)(Math.random()*20+1);
-                if(!list.contains(n)){
-                    list.add(n);
-                }
-            }
-
-            bingo.addTabla(id, color);
-            for(int h:list){
-                bingo.addEdge(id, String.valueOf(h));
-            }
-            cont++;
-        }
-
-     */
 
 }

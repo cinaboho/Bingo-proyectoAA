@@ -1,0 +1,20 @@
+********************************
+Instrucciones para la aplicacion
+********************************
+
+Esta implementada en java. 
+
+La aplicacion cuenta con archivo llamado "archivo.txt"
+aqui ya hay algunas tablas generadas aleatoriamente. Pero si se desea hacer
+uso de otras se puede editar el archivo.
+
+Para usar la aplicacion se corre el programa y se cargan las tablas añadidas
+en el archivo anteriormente.
+
+Se escoje el color de la ronda que se juega y se procede a ir ingresando
+los numeros que se van cantando.
+
+Una vez alcanzada la cantidad de numero de la ronda se muestra la tabla ganadora
+en caso de no tener una, se muestra el mensaje si hubo otro ganador para ingresar
+una ultima bola.
+
