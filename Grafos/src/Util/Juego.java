@@ -1,4 +1,4 @@
-package Util;
+package Grafos.src.Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -58,7 +58,7 @@ public class Juego {
         else
             nBolas = 11;
         //sigue el lazo mientras no se hayan cantado todas las bolas
-        while(bolasJugadas.size()< 20){
+        while(bolasJugadas.size()< nBolas){
 
             //se obtiene una bola de este método
             int bola=generarBola();
@@ -155,7 +155,7 @@ public class Juego {
     */
     public void  generarTablas(){
         int cont=1;
-        while(cont<202){
+        while(cont<1000){
             //crea aleatoriamente el id
             int a=(int)(Math.random()*10);
             int b=(int)(Math.random()*10);
@@ -173,6 +173,7 @@ public class Juego {
             String color="amarillo";
             int numeros = 14;
             int co=(int)(Math.random()*3+1);
+            System.out.println("co es : "+co);
             if(co==2){
                 color="azul";
             }else if(co==3){
@@ -196,6 +197,7 @@ public class Juego {
             }
             cont++;
         }
+
 
     }
 

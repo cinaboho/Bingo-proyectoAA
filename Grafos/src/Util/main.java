@@ -3,10 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+package Grafos.src.Util;
 
 /**
  *
@@ -18,7 +15,7 @@ public class main {
 
         Juego juego= new Juego();
         //menu();
-        juego.menu();
+        //juego.menu();
 
     }
 }

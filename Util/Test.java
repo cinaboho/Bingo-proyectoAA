@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Util;
-import Util.GraphBingo;
+import Grafos.src.Util.GraphBingo;
 /**
  *
  * @author josue
