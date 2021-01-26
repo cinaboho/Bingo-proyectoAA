@@ -2,6 +2,7 @@ package Grafos.src.Util;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Juego {
@@ -68,11 +69,11 @@ public class Juego {
             System.out.println("la bola jugada es: "+ bola);
 
             //método para tachar(eliminar el numero de la tabla) bolas de la tabla
-            String salida=tachar(bola);
+            LinkedList<String> salida=tachar(bola);
 
             //Si nos devuelve algo diferente a nulo, significa que esa tabla ganó
-            if(salida!="null"){
-                System.out.println("el ganador es : "+salida);
+            if(!salida.isEmpty()){
+                System.out.println("el o los ganadores son : "+salida);
 
                 //se limpia la lista de bolas jugadas
                 bolasJugadas.clear();
@@ -87,11 +88,11 @@ public class Juego {
             System.out.println("la bola jugada es: "+ bola);
 
             //método para tachar(eliminar el numero de la tabla) bolas de la tabla
-            String salida=tachar(bola);
+            LinkedList<String> salida=tachar(bola);
 
             //Si nos devuelve algo diferente a nulo, significa que esa tabla ganó
-            if(salida!="null"){
-                System.out.println("el ganador es : "+salida);
+            if(!salida.isEmpty()){
+                System.out.println("el o los ganadores son : "+salida);
 
                 //se limpia la lista de bolas jugadas
                 bolasJugadas.clear();
@@ -104,8 +105,9 @@ public class Juego {
     }
 
     //método para tachar (eliminar numero de la tabla)
-    private String tachar(int numero) {
-
+    private LinkedList<String> tachar(int numero) {
+        
+        LinkedList<String> ganadores = new LinkedList<>();
         String bola= String.valueOf(numero);
 
         //se busca el número en la lista de vertices del grafo
@@ -119,11 +121,11 @@ public class Juego {
             if(id.getColor()==colorRonda){
                 int salida=bingo.removeEdge((String)id.getData(),bola);
                 if(salida==1){
-                    return (String)e.getVDestino().getData();
+                    ganadores.add((String)e.getVDestino().getData());
                 }
             }
         }
-        return "null";
+        return ganadores;
     }
 
 
