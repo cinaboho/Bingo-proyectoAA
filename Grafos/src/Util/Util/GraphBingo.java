@@ -73,7 +73,7 @@ public class GraphBingo <E>{
         ListIterator<Vertex<E>> iv = tablas.listIterator();
         while(iv.hasNext()){
             Vertex<E> v = iv.next();
-            ListIterator<Edge> ie = v.getEdges().listIterator();
+            ListIterator<Edge<E>> ie = v.getEdges().listIterator();
             while(ie.hasNext()){ 
                 Edge<E> e = ie.next();
                 if(e.getVDestino().getData().equals(data)){

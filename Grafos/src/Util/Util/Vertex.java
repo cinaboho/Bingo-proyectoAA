@@ -30,10 +30,7 @@ public class Vertex <E> {
         edges = new LinkedList<>();
     }
 
-    public Vertex(E data) {
-        this.data = data;
-        edges=new LinkedList<>();
-    }
+
 
     public E getData() {
         return data;

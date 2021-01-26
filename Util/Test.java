@@ -5,6 +5,8 @@
  */
 package Util;
 
+import Grafos.src.Util.Util.GraphBingo;
+
 /**
  *
  * @author josue
